@@ -12,10 +12,10 @@ export const registerUser = createAsyncThunk(
       console.log("response values: ", response);
       return response;
     } catch (error: AxiosError | any) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
       } else {
-        return rejectWithValue(error.message);
+        return rejectWithValue(error.response.data.message);
       }
     }
   }

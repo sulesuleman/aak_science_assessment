@@ -56,6 +56,12 @@ const SignupForm = () => {
       formik.resetForm();
       console.log("User signed in successfully");
     } catch (error: any) {
+      setToast((prev) => ({
+        ...prev,
+        type: "danger",
+        message: error || "",
+        visible: true,
+      }));
       console.error("Error signing up user: ", error);
     }
   };
@@ -63,14 +69,14 @@ const SignupForm = () => {
   const formik = useFormik({
     initialValues,
     enableReinitialize: true,
-    validateOnChange: true,
+    validateOnChange: false,
     validationSchema: signupFormValidationSchema,
     onSubmit,
   });
 
   return (
     <Fragment>
-      <Alert color="info" isOpen={toast.visible} toggle={onDismiss}>
+      <Alert color={toast.type} isOpen={toast.visible} toggle={onDismiss}>
         {toast.message}
       </Alert>
 
@@ -131,7 +137,7 @@ const SignupForm = () => {
         </Row>
         <Row>
           <Col md={6}>
-            <Input
+            <TextField
               id="username"
               name="username"
               placeholder="Username"
@@ -170,6 +176,7 @@ const SignupForm = () => {
             <TextField
               id="country"
               name="country"
+              placeholder="Country"
               type="text"
               onChange={formik.handleChange}
               value={formik.values.country}

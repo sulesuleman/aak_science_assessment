@@ -8,7 +8,7 @@ interface TextFieldProps extends InputProps {
 const TextField: FC<TextFieldProps> = ({ errorMessage, ...rest }) => {
   return (
     <FormGroup>
-      <Label for={rest.name}>First Name</Label>
+      <Label for={rest.name}>{rest.placeholder}</Label>
       <Input {...rest} />
 
       {errorMessage && <FormFeedback>{errorMessage}</FormFeedback>}
